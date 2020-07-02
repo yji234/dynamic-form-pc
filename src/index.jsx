@@ -1,16 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Management from './dynamic-form/Management';
 
 const Index = () => {
-    const [count, setCount] = useState(0);
     return (
-        <>
-            <h2>{count}</h2>
-            <button type="button" onClick={() => {
-                setCount(count+1)
-            }}>setCount</button> 
-        </>
+        <Management />
     )
 }
  
