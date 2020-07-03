@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
-import { Button, Table, } from 'antd';
+import React, { useCallback, useRef } from 'react';
+import { Button, Table } from 'antd';
+import FormModal from '../components/FromModal';
 import './Management.css';
 
 const columns = [
@@ -28,7 +29,7 @@ const columns = [
 ];
 const data = [
     {
-        key: '1',
+        key: '1', // 唯一id
         formName: '章证照管理',
         isApproval: 1,
         approvalBillType: 0,
@@ -42,17 +43,19 @@ const data = [
 ];
 
 const Management = () => {
-    const newTableItem = useCallback(() => {
+  const modalRef = useRef(null);
 
-    }, [])
+  const newTableItem = useCallback(() => {
+    modalRef.current.setVisibleFromFather();
+  }, []);
 
-    return (
-        <div id="management">
-            <Button type="primary" id="newButton" onClick={() => newTableItem()}>新建</Button>
-            <Table columns={columns} dataSource={data} />
-        </div>
-    )
+  return (
+      <div id="management">
+        <Button type="primary" id="newButton" onClick={() => newTableItem()}>新建</Button>
+        <Table columns={columns} dataSource={data} />
+        <FormModal ref={modalRef} />
+      </div>
+  )
 }
  
 export default Management;
-  
