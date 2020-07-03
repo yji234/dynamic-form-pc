@@ -1,0 +1,63 @@
+#new{
+    width: 1200px;
+    height: 900px;
+    background-color: ghostwhite;
+}
+
+#saveOrPreview button{
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+#newOuter{
+    width: 100%;
+    height: 800px;
+    /* background-color: darkgoldenrod; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#controlLibrary{
+    width: 390px;
+    height: 100%;
+    /* background-color: gainsboro; */
+    padding: 25px 10px 10px 10px;
+}
+.tip{
+    text-align: center;
+}
+.baseAttribute{
+    width: 160px;
+    height: 30px;
+    margin: 10px;
+}
+#mainForm{
+    width: 420px;
+    height: 100%;
+    /* background-color: darkkhaki; */
+    background: url('../images/mobile.png') no-repeat center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#content{
+    width: 340px;
+    height: 680px;
+    background-color: gainsboro;
+}
+#controlSet{
+    width: 390px;
+    height: 100%;
+    /* background-color: gainsboro; */
+    padding: 20px;
+}
+#controlSet label{
+    width: 100px;
+}
+.setTitle{
+    text-align: center;
+}
+#controlSet button{
+    margin-left: 20px;
+}
+

@@ -22,6 +22,7 @@ const FormModal = forwardRef((props, ref) => {
   }
 
   const validateMessages = {
+    // eslint-disable-next-line no-template-curly-in-string
     required: "${label}不能为空!",
   };
 
