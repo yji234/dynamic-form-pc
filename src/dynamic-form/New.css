@@ -42,8 +42,9 @@
 }
 #content{
     width: 340px;
-    height: 680px;
-    background-color: gainsboro;
+    height: 650px;
+    overflow: auto;
+    /* background-color: gainsboro; */
 }
 #controlSet{
     width: 390px;
@@ -57,7 +58,72 @@
 .setTitle{
     text-align: center;
 }
+.elementType{
+    font-size: 20px;
+    font-weight: 600;
+    color: #1890ff;
+}
 #controlSet button{
     margin-left: 20px;
 }
+
+
+
+/* 拖拽后的元素 */
+.target{
+    width: 100%;
+    height: 35px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    /* padding: 0px 10px; */
+    margin-bottom: 10px;
+    line-height: 35px;
+    cursor: pointer;
+}
+.targetLabel{
+    width: 80px;
+    height: 100%;
+    /* background-color: gray; */
+    text-align: right;
+}
+.targetLabelRequired::before {
+    display: inline-block;
+    margin-right: 4px;
+    color: #ff4d4f;
+    font-size: 14px;
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+    content: '*';
+}
+.targetValue{
+    width: 220px;
+    height: 100%;
+    /* background-color: gold; */
+    padding-left: 20px;
+    border-radius: 6px;
+    border: 1px solid #d9d9d9;
+}
+.closeIcon{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: #ff4d4f;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+}
+
+/* 金额独有 */
+.hintWord{
+    width: 100px;
+    height: 25px;
+    /* background-color: indianred; */
+    line-height: 25px;
+    margin-left: 90px;
+}
+
 
