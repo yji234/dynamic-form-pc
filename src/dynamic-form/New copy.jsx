@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { Button } from 'antd';
+import React, { useCallback, useState } from 'react';
+import { Button, Form } from 'antd';
 import './New.css';
 
 const baseAttributeList = [
@@ -44,7 +44,7 @@ const baseAttributeList = [
             {
                 id: '4',
                 ruleName: '禁用',
-                ruleValue: 'isDisabled',
+                ruleValue: 'isDiabled',
                 ruleType: 'checkbox',
                 defaultValue: '',
                 placeHolder: '',
@@ -69,63 +69,6 @@ const baseAttributeList = [
         id: '2',
         type: 'textarea',
         name: '多行输入框',
-        list: [
-            {
-                id: "1",
-                ruleName: "标题",
-                ruleValue: "label",
-                ruleType: "text",
-                defaultValue: "",
-                placeHolder: '请输入',
-                topTip: "最多20字",
-                bottomTip: "",
-                checkboxLabel: '',
-            },
-            {
-                id: '2',
-                ruleName: '提示文字',
-                ruleValue: 'placeHolder',
-                ruleType: 'text',
-                defaultValue: '',
-                placeHolder: '请输入',
-                topTip: '最多50字',
-                bottomTip: '内容最多可填写1000字',
-                checkboxLabel: ''
-            },
-            {
-                id: '3',
-                ruleName: '必填',
-                ruleValue: 'isRequired',
-                ruleType: 'checkbox',
-                defaultValue: '',
-                placeHolder: '',
-                topTip: '',
-                bottomTip: '',
-                checkboxLabel: '是否必填'
-            },
-            {
-                id: '4',
-                ruleName: '禁用',
-                ruleValue: 'isDisabled',
-                ruleType: 'checkbox',
-                defaultValue: '',
-                placeHolder: '',
-                topTip: '',
-                bottomTip: '',
-                checkboxLabel: '是否禁用'
-            },
-            {
-                id: '5',
-                ruleName: '打印',
-                ruleValue: 'isPrint',
-                ruleType: 'checkbox',
-                defaultValue: '',
-                placeHolder: '',
-                topTip: '如不勾选，打印时不显示该项',
-                bottomTip: '',
-                checkboxLabel: '参与打印'
-            },
-        ],
     },
     {
         id: '3',
@@ -232,7 +175,7 @@ const trueDropElementChild = {
 //         {
 //             id: '4',
 //             ruleName: '禁用',
-//             ruleValue: 'isDisabled',
+//             ruleValue: 'isDiabled',
 //             ruleType: 'checkbox',
 //             defaultValue: '',
 //             placeHolder: '',
@@ -368,68 +311,70 @@ const trueDropElementChild = {
 //     // }
 // };
 // 控件属性列表
-// let attributeList = [
-    // {
-    //     id: "1",
-    //     ruleName: "标题",
-    //     ruleValue: "label",
-    //     ruleType: "text",
-    //     defaultValue: "",
-    //     placeHolder: '请输入',
-    //     topTip: "最多20字",
-    //     bottomTip: "",
-    //     checkboxLabel: '',
-    // },
-    // {
-    //     id: '2',
-    //     ruleName: '提示文字',
-    //     ruleValue: 'placeHolder',
-    //     ruleType: 'text',
-    //     defaultValue: '',
-    //     placeHolder: '请输入',
-    //     topTip: '最多50字',
-    //     bottomTip: '内容最多可填写1000字',
-    //     checkboxLabel: ''
-    // },
-    // {
-    //     id: '3',
-    //     ruleName: '必填',
-    //     ruleValue: 'isRequired',
-    //     ruleType: 'checkbox',
-    //     defaultValue: '',
-    //     placeHolder: '',
-    //     topTip: '',
-    //     bottomTip: '',
-    //     checkboxLabel: '是否必填'
-    // },
-    // {
-    //     id: '4',
-    //     ruleName: '禁用',
-    //     ruleValue: 'isDisabled',
-    //     ruleType: 'checkbox',
-    //     defaultValue: '',
-    //     placeHolder: '',
-    //     topTip: '',
-    //     bottomTip: '',
-    //     checkboxLabel: '是否禁用'
-    // },
-    // {
-    //     id: '5',
-    //     ruleName: '打印',
-    //     ruleValue: 'isPrint',
-    //     ruleType: 'checkbox',
-    //     defaultValue: '',
-    //     placeHolder: '',
-    //     topTip: '如不勾选，打印时不显示该项',
-    //     bottomTip: '',
-    //     checkboxLabel: '参与打印'
-    // },
-// ]
-let controlSetElement;
+let attributeList = [
+    {
+        id: "1",
+        ruleName: "标题",
+        ruleValue: "label",
+        ruleType: "text",
+        defaultValue: "",
+        placeHolder: '请输入',
+        topTip: "最多20字",
+        bottomTip: "",
+        checkboxLabel: '',
+    },
+    {
+        id: '2',
+        ruleName: '提示文字',
+        ruleValue: 'placeHolder',
+        ruleType: 'text',
+        defaultValue: '',
+        placeHolder: '请输入',
+        topTip: '最多50字',
+        bottomTip: '内容最多可填写1000字',
+        checkboxLabel: ''
+    },
+    {
+        id: '3',
+        ruleName: '必填',
+        ruleValue: 'isRequired',
+        ruleType: 'checkbox',
+        defaultValue: '',
+        placeHolder: '',
+        topTip: '',
+        bottomTip: '',
+        checkboxLabel: '是否必填'
+    },
+    {
+        id: '4',
+        ruleName: '禁用',
+        ruleValue: 'isDiabled',
+        ruleType: 'checkbox',
+        defaultValue: '',
+        placeHolder: '',
+        topTip: '',
+        bottomTip: '',
+        checkboxLabel: '是否禁用'
+    },
+    {
+        id: '5',
+        ruleName: '打印',
+        ruleValue: 'isPrint',
+        ruleType: 'checkbox',
+        defaultValue: '',
+        placeHolder: '',
+        topTip: '如不勾选，打印时不显示该项',
+        bottomTip: '',
+        checkboxLabel: '参与打印'
+    },
+]
 
 const New = () => {
-    const [elementTypeText, setElementTypeText] = useState('');    // 设置元素属性
-    const [attributeList, setAttributeList] = useState([]);     // 控件属性列表
+    const [form] = Form.useForm();
+    // const { Option } = Select;
+    const [elementTypeText, setElementTypeText] = useState('') ;    // 设置元素属性
+    // 拖拽元素类型
+    // const [elementType, setElementType] = useState('');
 
     const save = useCallback(() => {
 
@@ -438,6 +383,20 @@ const New = () => {
     const preview = useCallback(() => {
 
     }, []);
+
+    const onFinish = value => {
+        // console.log(value);
+        // TODO:发送value到后端
+    }
+
+    // const onReset = () => {
+    //     form.resetFields();
+    // };  
+    
+    const validateMessages = {
+        // eslint-disable-next-line no-template-curly-in-string
+        required: "${label}不能为空!",
+    };
 
     const getId = useCallback(() => {
         return Number(Math.random().toString().substr(3, 3) + Date.now()).toString(36);
@@ -455,58 +414,35 @@ const New = () => {
         return trueDropElement;
     }, [getId]);
 
-    // 清除右侧控件属性设置
-    const clearControlSet = useCallback(() => {
-        // 清除属性
-        console.log(controlSetElement);
-        controlSetElement.removeAttribute('current-attribute');
-        setAttributeList([...[]]);
-        const inputElementList = document.querySelectorAll('#controlSet .settings');
-        for (let i = 0; i < inputElementList.length; i++){
-            console.log(inputElementList[i].value);
-            inputElementList[i].value = '';
-            inputElementList[i].checked = false;
-        }
-    }, [setAttributeList]);
-
     // 设置控件属性
     const setControlAttribute = useCallback((element) => {
-        console.log(element);
-        const inputElementList = document.querySelectorAll('#controlSet .settings');
-        const targetLabelElement = element.querySelectorAll('.targetLabel')[0];
-        const targetValElement = element.querySelectorAll('.targetValue')[0];
-        setElementTypeText(targetLabelElement.innerHTML);
-        for (let i = 0; i < inputElementList.length; i++) {
-            inputElementList[i].onchange = (event) => {
-                const inputElement = event.target;
-                console.log(inputElement);
-                console.log(inputElement.value);
-                switch(inputElement.name) {
-                    case 'label':
-                        targetLabelElement.innerHTML = inputElement.value;
+        // console.log(element);
+        let labelElement = element.childNodes[0].childNodes[0];
+        let valueElement = element.childNodes[0].childNodes[1];
+        element.onclick = (event) => {
+            let targetLabel = event.toElement.className === 'targetLabel' ? event.toElement.innerHTML : event.toElement.previousSibling.innerHTML;
+            setElementTypeText(targetLabel);
+        }
+        let settingsElement = document.querySelectorAll('.settings');
+        for(let i = 0; i < settingsElement.length; i++) {
+            // console.log(settingsElement[i]);
+            settingsElement[i].onblur = (event) => {
+                switch(i) {
+                    case 0:
+                        labelElement.innerHTML = event.target.value;
                         break;
-                    case 'placeHolder':
-                        targetValElement.innerHTML = inputElement.value;
-                        break;
-                    case 'isRequired':
-                        if(inputElement.checked) {
-                            targetLabelElement.classList.add('targetLabelRequired');
-                        } else {
-                            targetLabelElement.classList.remove('targetLabelRequired');
-                        }
-                        break;
-                    case 'isDisabled':
-                        if(inputElement.checked) {
-                            targetValElement.classList.add('targetValueDisabled');
-                        } else {
-                            targetValElement.classList.remove('targetValueDisabled');
-                        }
-                        break;
-                    case 'isPrint':
-                        break;
+                    case 1:
+                        valueElement.innerHTML = event.target.value;
+                        break; 
+                    case 2:
+                        // console.log(event.target);
+                        // let isRequired = event.target
+                        // labelElement.className = isRequired ? 'targetLabelRequired' : '';  
+                        break;     
                     default:
-                        break;
+                        break;    
                 }
+                
             }
         }
     }, []);
@@ -526,22 +462,31 @@ const New = () => {
             return;
         }
 
-        // 清除右侧控件属性设置
-        clearControlSet();
-
         // 根据元素类型获取新建的元素
         const trueDropElement = createTrueDropElement(elementType);
 
-        // 拖拽元素将元素对应的属性设置挂载到最右边控件属性的
         const attribute = baseAttributeList.filter((baseAttribute) => baseAttribute.type === elementType);
         let attributeParmas = {
             id: trueDropElement.getAttribute('id'),
             list: attribute[0].list, 
         }
-        trueDropElement.setAttribute('current-attribute', JSON.stringify(attributeParmas))
-        trueDropElement.setAttribute('class', 'comcom');
-        controlSetElement.setAttribute('current-attribute', JSON.stringify(attributeParmas));
-        setAttributeList([...attributeParmas.list]);
+        console.log(attributeParmas);
+
+        // let attr = elementAttribute[elementType];
+        // console.log(attr);
+        // console.log(trueDropElement.getAttribute('id'));
+        // attr['id'] = trueDropElement.getAttribute('id');
+        // let eleData = JSON.stringify(attr);
+        // console.log(eleData);
+        // if (!eleData) {
+        //     return;
+        // }
+        let controlSetElement = document.getElementById('controlSet');
+        controlSetElement.setAttribute('current-attrs', JSON.stringify(attributeParmas));
+        // eleData = JSON.parse(eleData);
+        // console.log(eleData);
+        // attributeList = [...eleData];
+        // console.log(attributeList);
 
         // 放置位置
         if(event.target.id && event.target.id === 'content') {
@@ -552,39 +497,18 @@ const New = () => {
             const brotherElement = event.target.parentNode.parentNode;
             targetElement.insertBefore(trueDropElement, brotherElement.nextSibling);
         }
-
         // 设置控件属性
-        setTimeout(() => {
-            setControlAttribute(trueDropElement);
-        }, 0)
-    }, [createTrueDropElement, setControlAttribute, setAttributeList, clearControlSet]);
+        setControlAttribute(trueDropElement);
+    }, [createTrueDropElement, setControlAttribute]);
 
     const dragoveHandle = useCallback((event) => {
         event.preventDefault();
     }, []);
 
-    const clickHandle = useCallback((event) => {
-        // 当前点击对象的ID--长串
-        const toId = event.target.parentElement.getAttribute('id') || event.target.parentElement.parentElement.getAttribute('id');
-        const controlElement = document.getElementById(toId);
-        const attributeParmas = controlElement.getAttribute('current-attribute');
-        if(!attributeParmas) {
-            return;
-        }
-        // 将所有的属性都保存到右边的编辑框，用于后续的数据保存 [例如 组件的ID, 需要一个唯一的东西来标识的, 即使是使用索引]
-        controlSetElement.setAttribute('current-attribute', attributeParmas);
-        // 将需要修改的值，赋值到表单上
-        setAttributeList([...JSON.parse(attributeParmas).list]);
-        // 控件设置里面的属性变化，中间的预览变化
-        setTimeout(function () {
-            console.log(123);
-            setControlAttribute(controlElement);
-        }, 0);
-    }, [setControlAttribute]);
-
-    useEffect(() => {
-        controlSetElement = document.getElementById('controlSet');
-    });
+    const inputChangeHandle = useCallback((event) => {
+        console.log(event.target);
+        console.log(event.target.value);
+    }, []);
 
     return (
         <div id="new">
@@ -614,16 +538,11 @@ const New = () => {
                     }
                 </div>
                 <div id="mainForm">
-                    <div
-                        id="content"
-                        onDrop={(event) => dropHandle(event)}
-                        onDragOver={(event) => dragoveHandle(event)}
-                        onClick={(event) => clickHandle(event)}
-                    ></div>
+                    <div id="content" onDrop={(event) => dropHandle(event)} onDragOver={(event) => dragoveHandle(event)}></div>
                 </div>
                 <div id="controlSet">
                     <p className="setTitle">可以设置<span className="elementType">{elementTypeText}</span>控件属性哦</p>
-                    <div>
+                    <Form form={form} name="dynamicForm" onFinish={onFinish} validateMessages={validateMessages}>
                         {
                            attributeList.length > 0 &&  attributeList.map((attribute) => {
                                return (
@@ -645,6 +564,7 @@ const New = () => {
                                                     placeholder={attribute.placeHolder} 
                                                     defaultValue={attribute.defaultValue}
                                                     name={attribute.ruleValue}
+                                                    onChange={(event) => inputChangeHandle(event)}
                                                 />
                                                 <span className="ruleValue">{attribute.checkboxLabel}</span>
                                             </div>
@@ -655,7 +575,36 @@ const New = () => {
                                )
                            })
                         }
-                    </div>
+                        {/* <Form.Item name="label" label="label" rules={[{ required: true }]}>
+                            <Input placeholder="请输入label" className="settings"/>
+                        </Form.Item>
+                        <Form.Item name="placeHolder" label="placeHolder" rules={[{ required: true }]}>
+                            <Input placeholder="请输入placeHolder" className="settings" />
+                        </Form.Item>
+                        <Form.Item name="isRequired" label="isRequired" rules={[{ required: true }]}>
+                            <Select
+                                placeholder="请选择isRequired"
+                                allowClear
+                                className="settings"
+                            >
+                                <Option value="1">是</Option>
+                                <Option value="0">否</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item name="isDisabled" label="isDisabled" rules={[{ required: true }]}>
+                            <Select
+                                placeholder="请选择isDisabled"
+                                allowClear
+                                className="settings"
+                            >
+                                <Option value="1">是</Option>
+                                <Option value="0">否</Option>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item name="maxLength" label="maxLength" rules={[{ required: true }]}>
+                            <Input placeholder="请输入maxLength" className="settings" />
+                        </Form.Item> */}
+                    </Form>
                 </div>
             </div>
         </div>
