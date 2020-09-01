@@ -8,3 +8,7 @@
 #newButton{
     margin-bottom: 20px;
 }
+
+#canvasRef{
+    border: 1px solid gray;
+}

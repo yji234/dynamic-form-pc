@@ -1,10 +1,12 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Button, Table } from 'antd';
 import FormModal from '../components/FromModal';
+import CanvasMark from '../components/CanvasMark';
 import New from '../dynamic-form/New';
 import './Management.css';
 
 const Management = () => {
+  const [isShow] = useState(true);
   const modalRef = useRef(null);
 
   const addDynamicForm = useCallback((key) => {
@@ -61,10 +63,16 @@ const Management = () => {
 
   return (
       <div id="management">
-        <Button type="primary" id="newButton" onClick={() => newTableItem()}>新建</Button>
-        <Table columns={columns} dataSource={data} />
-        <FormModal ref={modalRef} />
-        <New />
+        <CanvasMark />
+        {
+          !isShow &&
+          <div>
+            <Button type="primary" id="newButton" onClick={() => newTableItem()}>新建</Button>
+            <Table columns={columns} dataSource={data} />
+            <FormModal ref={modalRef} />
+            <New />
+          </div>
+        }
       </div>
   )
 }

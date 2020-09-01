@@ -1,12 +1,12 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import './New.css';
 
 const baseAttributeList = [
     {
         id: '1',
         type: 'input',
-        name: '单行输入框',
+        name: 'Input',
         list: [
             {
                 id: "1",
@@ -62,13 +62,243 @@ const baseAttributeList = [
                 topTip: '如不勾选，打印时不显示该项',
                 bottomTip: '',
                 checkboxLabel: '参与打印'
+            },
+            {
+                id: '6',
+                ruleName: '最大长度',
+                ruleValue: 'maxLength',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '最多80',
+                bottomTip: '',
+                checkboxLabel: ''
             },
         ],
     },
     {
         id: '2',
         type: 'textarea',
-        name: '多行输入框',
+        name: 'Textarea',
+        list: [
+            {
+                id: "1",
+                ruleName: "标题",
+                ruleValue: "label",
+                ruleType: "text",
+                defaultValue: "",
+                placeHolder: '请输入',
+                topTip: "最多20字",
+                bottomTip: "",
+                checkboxLabel: '',
+            },
+            {
+                id: '2',
+                ruleName: '提示文字',
+                ruleValue: 'placeHolder',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '请输入',
+                topTip: '最多50字',
+                bottomTip: '内容最多可填写1000字',
+                checkboxLabel: ''
+            },
+            {
+                id: '3',
+                ruleName: '必填',
+                ruleValue: 'isRequired',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否必填'
+            },
+            {
+                id: '4',
+                ruleName: '禁用',
+                ruleValue: 'isDisabled',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否禁用'
+            },
+            {
+                id: '5',
+                ruleName: '打印',
+                ruleValue: 'isPrint',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '如不勾选，打印时不显示该项',
+                bottomTip: '',
+                checkboxLabel: '参与打印'
+            },
+            {
+                id: '6',
+                ruleName: '最大长度',
+                ruleValue: 'maxLength',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '最多200',
+                bottomTip: '',
+                checkboxLabel: ''
+            },
+        ],
+    },
+    {
+        id: '3',
+        type: 'igitalinput',
+        name: 'InputNumber',
+        list: [
+            {
+                id: "1",
+                ruleName: "标题",
+                ruleValue: "label",
+                ruleType: "text",
+                defaultValue: "",
+                placeHolder: '请输入',
+                topTip: "最多20字",
+                bottomTip: "",
+                checkboxLabel: '',
+            },
+            {
+                id: '2',
+                ruleName: '提示文字',
+                ruleValue: 'placeHolder',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '请输入',
+                topTip: '最多50字',
+                bottomTip: '内容最多可填写1000字',
+                checkboxLabel: ''
+            },
+            {
+                id: '3',
+                ruleName: '必填',
+                ruleValue: 'isRequired',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否必填'
+            },
+            {
+                id: '4',
+                ruleName: '禁用',
+                ruleValue: 'isDisabled',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否禁用'
+            },
+            {
+                id: '5',
+                ruleName: '打印',
+                ruleValue: 'isPrint',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '如不勾选，打印时不显示该项',
+                bottomTip: '',
+                checkboxLabel: '参与打印'
+            },
+            {
+                id: '6',
+                ruleName: '最大长度',
+                ruleValue: 'maxLength',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '最多9',
+                bottomTip: '',
+                checkboxLabel: ''
+            },
+        ],
+    },
+    {
+        id: '4',
+        type: 'money',
+        name: 'Money',
+        list: [
+            {
+                id: "1",
+                ruleName: "标题",
+                ruleValue: "label",
+                ruleType: "text",
+                defaultValue: "",
+                placeHolder: '请输入',
+                topTip: "最多20字",
+                bottomTip: "",
+                checkboxLabel: '',
+            },
+            {
+                id: '2',
+                ruleName: '提示文字',
+                ruleValue: 'placeHolder',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '请输入',
+                topTip: '最多50字',
+                bottomTip: '内容最多可填写1000字',
+                checkboxLabel: ''
+            },
+            {
+                id: '3',
+                ruleName: '必填',
+                ruleValue: 'isRequired',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否必填'
+            },
+            {
+                id: '4',
+                ruleName: '禁用',
+                ruleValue: 'isDisabled',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否禁用'
+            },
+            {
+                id: '5',
+                ruleName: '打印',
+                ruleValue: 'isPrint',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '如不勾选，打印时不显示该项',
+                bottomTip: '',
+                checkboxLabel: '参与打印'
+            },
+            {
+                id: '6',
+                ruleName: '最大长度',
+                ruleValue: 'maxLength',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '最多9',
+                bottomTip: '',
+                checkboxLabel: ''
+            },
+        ],
+    },
+    {
+        id: '5',
+        type: 'radio',
+        name: 'Radio',
         list: [
             {
                 id: "1",
@@ -128,54 +358,438 @@ const baseAttributeList = [
         ],
     },
     {
-        id: '3',
-        type: 'igitalinput',
-        name: '数字输入框',
-    },
-    {
-        id: '4',
-        type: 'money',
-        name: '金额',
-    },
-    {
-        id: '5',
-        type: 'radio',
-        name: '单选框',
-    },
-    {
         id: '6',
         type: 'checkbox',
-        name: '多选框'
+        name: 'Checkbox',
+        list: [
+            {
+                id: "1",
+                ruleName: "标题",
+                ruleValue: "label",
+                ruleType: "text",
+                defaultValue: "",
+                placeHolder: '请输入',
+                topTip: "最多20字",
+                bottomTip: "",
+                checkboxLabel: '',
+            },
+            {
+                id: '2',
+                ruleName: '提示文字',
+                ruleValue: 'placeHolder',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '请输入',
+                topTip: '最多50字',
+                bottomTip: '内容最多可填写1000字',
+                checkboxLabel: ''
+            },
+            {
+                id: '3',
+                ruleName: '必填',
+                ruleValue: 'isRequired',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否必填'
+            },
+            {
+                id: '4',
+                ruleName: '禁用',
+                ruleValue: 'isDisabled',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否禁用'
+            },
+            {
+                id: '5',
+                ruleName: '打印',
+                ruleValue: 'isPrint',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '如不勾选，打印时不显示该项',
+                bottomTip: '',
+                checkboxLabel: '参与打印'
+            },
+        ],
     },
     {
         id: '7',
         type: 'date',
-        name: '日期',
+        name: 'Date-Picker',
+        list: [
+            {
+                id: "1",
+                ruleName: "标题",
+                ruleValue: "label",
+                ruleType: "text",
+                defaultValue: "",
+                placeHolder: '请输入',
+                topTip: "最多20字",
+                bottomTip: "",
+                checkboxLabel: '',
+            },
+            {
+                id: '2',
+                ruleName: '提示文字',
+                ruleValue: 'placeHolder',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '请输入',
+                topTip: '最多50字',
+                bottomTip: '内容最多可填写1000字',
+                checkboxLabel: ''
+            },
+            {
+                id: '3',
+                ruleName: '必填',
+                ruleValue: 'isRequired',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否必填'
+            },
+            {
+                id: '4',
+                ruleName: '禁用',
+                ruleValue: 'isDisabled',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否禁用'
+            },
+            {
+                id: '5',
+                ruleName: '打印',
+                ruleValue: 'isPrint',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '如不勾选，打印时不显示该项',
+                bottomTip: '',
+                checkboxLabel: '参与打印'
+            },
+        ],
     },
     {
             id: '8',
             type: 'daterange',
-            name: '日期区间',
+            name: 'Daterange-Picker',
+            list: [
+                {
+                    id: "1",
+                    ruleName: "标题",
+                    ruleValue: "label",
+                    ruleType: "text",
+                    defaultValue: "",
+                    placeHolder: '请输入',
+                    topTip: "最多20字",
+                    bottomTip: "",
+                    checkboxLabel: '',
+                },
+                {
+                    id: '2',
+                    ruleName: '提示文字',
+                    ruleValue: 'placeHolder',
+                    ruleType: 'text',
+                    defaultValue: '',
+                    placeHolder: '请输入',
+                    topTip: '最多50字',
+                    bottomTip: '内容最多可填写1000字',
+                    checkboxLabel: ''
+                },
+                {
+                    id: '3',
+                    ruleName: '必填',
+                    ruleValue: 'isRequired',
+                    ruleType: 'checkbox',
+                    defaultValue: '',
+                    placeHolder: '',
+                    topTip: '',
+                    bottomTip: '',
+                    checkboxLabel: '是否必填'
+                },
+                {
+                    id: '4',
+                    ruleName: '禁用',
+                    ruleValue: 'isDisabled',
+                    ruleType: 'checkbox',
+                    defaultValue: '',
+                    placeHolder: '',
+                    topTip: '',
+                    bottomTip: '',
+                    checkboxLabel: '是否禁用'
+                },
+                {
+                    id: '5',
+                    ruleName: '打印',
+                    ruleValue: 'isPrint',
+                    ruleType: 'checkbox',
+                    defaultValue: '',
+                    placeHolder: '',
+                    topTip: '如不勾选，打印时不显示该项',
+                    bottomTip: '',
+                    checkboxLabel: '参与打印'
+                },
+            ],
     },
     {
         id: '9',
         type: 'picture',
-        name: '上传图片',
+        name: 'Upload-Picture',
+        list: [
+            {
+                id: "1",
+                ruleName: "标题",
+                ruleValue: "label",
+                ruleType: "text",
+                defaultValue: "",
+                placeHolder: '请输入',
+                topTip: "最多20字",
+                bottomTip: "",
+                checkboxLabel: '',
+            },
+            {
+                id: '2',
+                ruleName: '提示文字',
+                ruleValue: 'placeHolder',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '请输入',
+                topTip: '最多50字',
+                bottomTip: '内容最多可填写1000字',
+                checkboxLabel: ''
+            },
+            {
+                id: '3',
+                ruleName: '必填',
+                ruleValue: 'isRequired',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否必填'
+            },
+            {
+                id: '4',
+                ruleName: '禁用',
+                ruleValue: 'isDisabled',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否禁用'
+            },
+            {
+                id: '5',
+                ruleName: '打印',
+                ruleValue: 'isPrint',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '如不勾选，打印时不显示该项',
+                bottomTip: '',
+                checkboxLabel: '参与打印'
+            },
+        ],
     },
     {
         id: '10',
         type: 'file',
-        name: '上传文件',
+        name: 'Upload-File',
+        list: [
+            {
+                id: "1",
+                ruleName: "标题",
+                ruleValue: "label",
+                ruleType: "text",
+                defaultValue: "",
+                placeHolder: '请输入',
+                topTip: "最多20字",
+                bottomTip: "",
+                checkboxLabel: '',
+            },
+            {
+                id: '2',
+                ruleName: '提示文字',
+                ruleValue: 'placeHolder',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '请输入',
+                topTip: '最多50字',
+                bottomTip: '内容最多可填写1000字',
+                checkboxLabel: ''
+            },
+            {
+                id: '3',
+                ruleName: '必填',
+                ruleValue: 'isRequired',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否必填'
+            },
+            {
+                id: '4',
+                ruleName: '禁用',
+                ruleValue: 'isDisabled',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否禁用'
+            },
+            {
+                id: '5',
+                ruleName: '打印',
+                ruleValue: 'isPrint',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '如不勾选，打印时不显示该项',
+                bottomTip: '',
+                checkboxLabel: '参与打印'
+            },
+        ],
     },
     {
         id: '11',
         type: 'remark',
-        name: '备注',
+        name: 'Text',
+        list: [
+            {
+                id: "1",
+                ruleName: "标题",
+                ruleValue: "label",
+                ruleType: "text",
+                defaultValue: "",
+                placeHolder: '请输入',
+                topTip: "最多20字",
+                bottomTip: "",
+                checkboxLabel: '',
+            },
+            {
+                id: '2',
+                ruleName: '提示文字',
+                ruleValue: 'placeHolder',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '请输入',
+                topTip: '最多50字',
+                bottomTip: '内容最多可填写1000字',
+                checkboxLabel: ''
+            },
+            {
+                id: '3',
+                ruleName: '必填',
+                ruleValue: 'isRequired',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否必填'
+            },
+            {
+                id: '4',
+                ruleName: '禁用',
+                ruleValue: 'isDisabled',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否禁用'
+            },
+            {
+                id: '5',
+                ruleName: '打印',
+                ruleValue: 'isPrint',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '如不勾选，打印时不显示该项',
+                bottomTip: '',
+                checkboxLabel: '参与打印'
+            },
+        ],
     },
     {
         id: '12',
         type: 'refselect',
-        name: '参照选择',
+        name: 'Select',
+        list: [
+            {
+                id: "1",
+                ruleName: "标题",
+                ruleValue: "label",
+                ruleType: "text",
+                defaultValue: "",
+                placeHolder: '请输入',
+                topTip: "最多20字",
+                bottomTip: "",
+                checkboxLabel: '',
+            },
+            {
+                id: '2',
+                ruleName: '提示文字',
+                ruleValue: 'placeHolder',
+                ruleType: 'text',
+                defaultValue: '',
+                placeHolder: '请输入',
+                topTip: '最多50字',
+                bottomTip: '内容最多可填写1000字',
+                checkboxLabel: ''
+            },
+            {
+                id: '3',
+                ruleName: '必填',
+                ruleValue: 'isRequired',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否必填'
+            },
+            {
+                id: '4',
+                ruleName: '禁用',
+                ruleValue: 'isDisabled',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '',
+                bottomTip: '',
+                checkboxLabel: '是否禁用'
+            },
+            {
+                id: '5',
+                ruleName: '打印',
+                ruleValue: 'isPrint',
+                ruleType: 'checkbox',
+                defaultValue: '',
+                placeHolder: '',
+                topTip: '如不勾选，打印时不显示该项',
+                bottomTip: '',
+                checkboxLabel: '参与打印'
+            },
+        ],
     }
 ];
 // 拖拽元素
@@ -430,6 +1044,7 @@ let controlSetElement;
 const New = () => {
     const [elementTypeText, setElementTypeText] = useState('');    // 设置元素属性
     const [attributeList, setAttributeList] = useState([]);     // 控件属性列表
+    // const [myValue, setMyValue] = useState('hello');
 
     const save = useCallback(() => {
 
@@ -458,12 +1073,12 @@ const New = () => {
     // 清除右侧控件属性设置
     const clearControlSet = useCallback(() => {
         // 清除属性
-        console.log(controlSetElement);
+        // console.log(controlSetElement);
         controlSetElement.removeAttribute('current-attribute');
         setAttributeList([...[]]);
         const inputElementList = document.querySelectorAll('#controlSet .settings');
         for (let i = 0; i < inputElementList.length; i++){
-            console.log(inputElementList[i].value);
+            // console.log(inputElementList[i].value);
             inputElementList[i].value = '';
             inputElementList[i].checked = false;
         }
@@ -471,7 +1086,7 @@ const New = () => {
 
     // 设置控件属性
     const setControlAttribute = useCallback((element) => {
-        console.log(element);
+        // console.log(element);
         const inputElementList = document.querySelectorAll('#controlSet .settings');
         const targetLabelElement = element.querySelectorAll('.targetLabel')[0];
         const targetValElement = element.querySelectorAll('.targetValue')[0];
@@ -479,8 +1094,8 @@ const New = () => {
         for (let i = 0; i < inputElementList.length; i++) {
             inputElementList[i].onchange = (event) => {
                 const inputElement = event.target;
-                console.log(inputElement);
-                console.log(inputElement.value);
+                // console.log(inputElement);
+                // console.log(inputElement.value);
                 switch(inputElement.name) {
                     case 'label':
                         targetLabelElement.innerHTML = inputElement.value;
@@ -577,7 +1192,6 @@ const New = () => {
         setAttributeList([...JSON.parse(attributeParmas).list]);
         // 控件设置里面的属性变化，中间的预览变化
         setTimeout(function () {
-            console.log(123);
             setControlAttribute(controlElement);
         }, 0);
     }, [setControlAttribute]);
@@ -639,7 +1253,7 @@ const New = () => {
                                         {
                                             attribute.ruleValue !== 'dats' && attribute.ruleValue !== 'sopt' && attribute.ruleValue !== 'caption' && (
                                             <div className="settingsOuter">
-                                                <input 
+                                                <Input 
                                                     className="settings"
                                                     type={attribute.ruleType}
                                                     placeholder={attribute.placeHolder} 
