@@ -7,26 +7,19 @@ import './CanvasMark.css';
 let fabricObj;
 let drawObject;
 let labelResult = [];
-// let fabricJson;
 let drawStatus = false;
-let mouseFrom;
-let mouseTo;
+let mouseFrom = {};
+let mouseTo = {};
 let isEdit = false;
 let xLine;
 let yLine;
-let axisTip;
 let selectedShape = 'rect';
-// 四边形
-let cachePath = []
-let polygon;
+let moveCount;
 
 const CanvasMark = () => {
   const canvasRef = useRef(null);
   const imgRef = useRef(null);
   const canvasBoxRef = useRef(null);
-  // const [mouseFrom, setMouseFrom] = useState({});
-  // const [mouseTo, setMouseTo] = useState({});
-  // const [drawStatus, setDrawStatus] = useState(false);
   const [markResult, setMarkResult] = useState([]);
   const markResultRef = useRef(null);
   const [currentMarkResultId, setCurrentMarkResultId] = useState();
@@ -64,14 +57,6 @@ const CanvasMark = () => {
     });
   }, []);
 
-  const handleSetAxisTip = useCallback(() => {
-    return new fabric.Text('(0, 0)', {
-      fontSize: 20,
-      originX: 0,  // 放到看不见的位置
-      originY: 0  // 放到看不见的位置
-    });
-  }, []);
-
   const initFabric = useCallback(() => {
     const canvasBox = canvasBoxRef.current;
     let canvasWidth = canvasBox.clientWidth||canvasBox.offsetWidth;
@@ -101,12 +86,6 @@ const CanvasMark = () => {
       zIndex: 0,
       selectable: false,
     });
-    polygon = new fabric.Polygon([], {
-      stroke: '#111',
-      fill: 'rgba(255, 255, 255, 0.2)',
-      objectCaching:false,
-    });
-
     fabricObj.add(
         img,
     );
@@ -119,11 +98,6 @@ const CanvasMark = () => {
 
     yLine.width = fabricObj.width
     yLine.top = event.pointer.y  // 上边的距离
-
-    // TODO: 被覆盖时，可以修改下显示位置
-    axisTip.text = '(' + parseInt(event.pointer.x) + ',' + parseInt(event.pointer.y) + ')'
-    axisTip.left = event.pointer.x
-    axisTip.top = event.pointer.y - axisTip.height
 
     fabricObj.renderAll();
   }, []);
@@ -159,13 +133,6 @@ const CanvasMark = () => {
     });
   }, []);
 
-  const handleDrawPolygon = useCallback(() => {
-    if (cachePath.length < 7) {
-      polygon.points = cachePath.concat([mouseTo])
-      fabricObj.renderAll();
-    }
-    return polygon;
-  }, []);
 
   const handleDraw = useCallback(() => {
     if(drawObject) {
@@ -175,10 +142,7 @@ const CanvasMark = () => {
     switch(selectedShape) {
       case 'rect':
         fabricNew = handleDrawRect();
-        break;
-      case 'polygon':
-        fabricNew = handleDrawPolygon();
-        break;  
+        break; 
       default:
         break;  
     }
@@ -187,77 +151,82 @@ const CanvasMark = () => {
       fabricObj.add(fabricNew);
       drawObject = fabricNew;
     }
-  }, [handleDrawRect, handleDrawPolygon]);
+  }, [handleDrawRect]);
 
   const handleMouseDown = useCallback((event) => {
     if (isEdit){
       return;
     }
-    isEdit = false;
     drawStatus = true;
     mouseFrom = {
       x: event.pointer.x,
       y: event.pointer.y,
     }
-    // console.log('mouse:down')
-    if(selectedShape === 'polygon') {
-      if (cachePath.length > 4) {
-        drawStatus = false
-        return
-      }
-      polygon.points.push(mouseFrom);
-      cachePath = polygon.points  // 缓存路径
-      fabricObj.add(polygon)
-      fabricObj.renderAll();
-    }
+    console.log('mouse:down')
   }, []);
 
   const handleMouseMove = useCallback((event) => {
     handleDrawXYLine(event)
+    if (moveCount % 2 && !drawStatus) {
+      //减少绘制频率
+      return;
+    }
+    moveCount++;
     mouseTo = {
       x: event.pointer.x,
       y: event.pointer.y,
     }
-    if (drawStatus) {
-      handleDraw();
-    }
-    fabricObj.renderAll();
-  }, [handleDraw, handleDrawXYLine]);
+    handleDraw();
+    // fabricObj.renderAll();
+  }, [handleDrawXYLine, handleDraw]);
 
   const handleEdit = useCallback((event, markResultItem) => {
-    // event.stopPropagation();
+    isEdit = true;
+    drawStatus = false
+    selectedShape = '';
     fabricObj.isDrawingMode = false;
     fabricObj.selectable = true;
     fabricObj.selection = true;
     fabricObj.skipTargetFind = false;
     fabricObj.bringToFront(markResultItem);
     fabricObj.setActiveObject(markResultItem);
+    
+  }, []);
+
+  const handleEditAll = useCallback(() => {
     isEdit = true;
+    drawStatus = false;
+    selectedShape = '';
+    fabricObj.isDrawingMode = false;
+    fabricObj.selectable = true;
+    fabricObj.selection = true;
+    fabricObj.skipTargetFind = false;
   }, []);
 
   const handleMouseUp = useCallback((event) => {
+    moveCount = 1;
     mouseTo = {
       x: event.pointer.x,
       y: event.pointer.y,
     }
-    // console.log('mouse:up');
+    console.log('mouse:up');
     if(selectedShape === 'rect') {
-      if(drawObject){
+      if(drawObject && !isEdit){
         drawObject.set('id',labelResult.length);
         labelResult.push(drawObject)
         // 画完即可编辑
         handleEdit(event, drawObject)
+        // handleEditAll()
       }
     }
     setMarkResult([...labelResult])
     markResultRef.current = [...labelResult];
     drawObject = null;
     drawStatus = false;
-    isEdit = true;
   }, [handleEdit]);
 
   const handleSelectionCreated = useCallback((event) => {
-    // console.log('selection:created')
+    console.log('selection:created')
     event.target.set({
         transparentCorners: false,
         cornerColor: '#ff7a55',
@@ -268,7 +237,6 @@ const CanvasMark = () => {
         cornerStyle: 'circle',
         borderDashArray: [3, 3]
     });
-    isEdit = true;
     setCurrentMarkResultId(event.target.id);
     currentMarkResultIdRef.current = event.target.id;
   }, []);
@@ -284,7 +252,7 @@ const CanvasMark = () => {
   }, []);
 
   const handleSelectionUpdated = useCallback((event) => {
-    // console.log('selection:updated')
+    console.log('selection:updated')
     setCurrentMarkResultId(event.target.id);
     currentMarkResultIdRef.current = event.target.id;
     event.target.set({
@@ -295,7 +263,7 @@ const CanvasMark = () => {
       cornerSize: 12,
       padding: 10,
       cornerStyle: 'circle',
-      borderDashArray: [3, 3]
+      borderDashArray: [3, 3],
     });
   }, []);
 
@@ -318,17 +286,25 @@ const CanvasMark = () => {
     fabricObj.add(textBox);
   }, []);
 
-  const handleSelectionCleared = useCallback((event) => {
-    // console.log('selection:cleared');
+  const handleSelectShape = useCallback((shape) => {
+    selectedShape = shape;
     isEdit = false;
+    fabricObj.isDrawingMode = false;
+    fabricObj.selectable = false;
+    fabricObj.selection = false;
+    fabricObj.skipTargetFind = true;
   }, []);
+
+  const handleSelectionCleared = useCallback((event) => {
+    console.log('selection:cleared');
+    handleSelectShape('rect');
+  }, [handleSelectShape]);
 
   const handleMouseOver = useCallback((event) => {
     // console.log('mouse:over');
     fabricObj.add(
       xLine,
       yLine,
-      axisTip,
     );
   }, []);
 
@@ -337,7 +313,6 @@ const CanvasMark = () => {
     fabricObj.remove(
       xLine,
       yLine,
-      axisTip,
     )
   }, []);
 
@@ -352,6 +327,10 @@ const CanvasMark = () => {
       'selection:updated': (event) => handleSelectionUpdated(event),
       'selection:cleared': (event) => handleSelectionCleared(event),
       'object:modified': (event) => handleObjectModified(event),
+      'object:moving': () => {},
+      'mouse:down:before': (event) => {
+        console.log('mouse:down:before ');
+      }
     })
   }, [
     handleMouseMove, 
@@ -360,14 +339,10 @@ const CanvasMark = () => {
     handleMouseOver, 
     handleMouseOut, 
     handleSelectionCreated, 
+    handleSelectionUpdated,
     handleObjectModified, 
-    handleSelectionUpdated, 
-    handleSelectionCleared, 
+    handleSelectionCleared,
   ]);
-
-  const handleSelectShape = useCallback((shape) => {
-    selectedShape = shape;
-  }, []);
 
   const handleKeyDown = useCallback((event) => {
     let ev = event || window.event;
@@ -416,11 +391,10 @@ const CanvasMark = () => {
   useEffect(() => {
     xLine = handleSetXLine();
     yLine = handleSetYLine();
-    axisTip = handleSetAxisTip();
     initFabric();
     fabricObjEvent();
     document.addEventListener("keydown", handleKeyDown)
-  }, [handleSetXLine, handleSetYLine, handleSetAxisTip, initFabric, fabricObjEvent])
+  }, [handleSetXLine, handleSetYLine, initFabric, fabricObjEvent])
 
   const handleDelete = useCallback((event, index) => {
     event.stopPropagation();
@@ -464,7 +438,7 @@ const CanvasMark = () => {
       <div id="canvasMark">
         <div id="shape">
           <Button type="primary" size="small" style={{marginBottom: '10px'}} onClick={() => { handleSelectShape('rect')}}>矩形</Button> 
-          <Button type="primary" size="small" onClick={() => { handleSelectShape('polygon')}}>四边形</Button> 
+          <Button type="primary" size="small" onClick={() => { handleEditAll()}}>编辑</Button> 
         </div>
         <div id="canvasBox" ref={canvasBoxRef} style={{width: '600px', height: '400px', border: '1px solid grey',}}>
           <canvas 
