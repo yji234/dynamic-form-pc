@@ -14,7 +14,7 @@ let isEdit = false;
 let xLine;
 let yLine;
 let selectedShape = 'rect';
-let moveCount;
+let moveCount; 
 
 const CanvasMark = () => {
   const canvasRef = useRef(null);
@@ -164,6 +164,7 @@ const CanvasMark = () => {
       x: event.pointer.x,
       y: event.pointer.y,
     }
+    console.log(mouseFrom.x, mouseFrom.y)
     console.log('mouse:down')
   }, []);
 
@@ -211,13 +212,17 @@ const CanvasMark = () => {
       x: event.pointer.x,
       y: event.pointer.y,
     }
+    let width = mouseTo.x - mouseFrom.x;
+    let height = mouseTo.y - mouseFrom.y;
     console.log('mouse:up');
     if(selectedShape === 'rect') {
       if(drawObject && !isEdit){
         drawObject.set('id',labelResult.length);
         labelResult.push(drawObject)
         // 画完即可编辑
-        handleEdit(event, drawObject)
+        if(width >= 5 && height >= 5) {
+          handleEdit(event, drawObject)
+        }
         // handleEditAll()
       }
     }
