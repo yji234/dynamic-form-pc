@@ -79,6 +79,7 @@ const CanvasMark = () => {
     }else {
         scale = canvasHeight/imgHeight
     }
+    // console.log(scale)
 
     let img = new fabric.Image(imgElement,{
       scaleX: scale,
