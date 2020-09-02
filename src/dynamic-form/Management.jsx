@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Button, Table } from 'antd';
 import FormModal from '../components/FromModal';
 import CanvasMark from '../components/CanvasMark';
-import New from '../dynamic-form/New';
+import New from './New';
 import './Management.css';
 
 const Management = () => {
@@ -33,7 +33,7 @@ const Management = () => {
         title: 'Action',
         key: 'action',
         render: (text, record, index) => (
-          <Button 
+          <Button
             type="primary"
             onClick={() => {
               addDynamicForm(record.key)
@@ -76,5 +76,5 @@ const Management = () => {
       </div>
   )
 }
- 
+
 export default Management;
