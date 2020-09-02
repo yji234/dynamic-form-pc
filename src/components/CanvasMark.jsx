@@ -88,16 +88,18 @@ const CanvasMark = () => {
     });
     fabricObj.add(
         img,
+        xLine,
+        yLine,
     );
     fabricObj.renderAll();
   }, [])
 
-  const handleDrawXYLine = useCallback((event) => {
-    xLine.height = fabricObj.height
-    xLine.left = event.pointer.x  // 左边的距离
+  const handleDrawXYLine = useCallback((mouseTo) => {
+    yLine.height = fabricObj.height
+    yLine.left = mouseTo.x  // 左边的距离
 
-    yLine.width = fabricObj.width
-    yLine.top = event.pointer.y  // 上边的距离
+    xLine.width = fabricObj.width
+    xLine.top = mouseTo.y  // 上边的距离
 
     fabricObj.renderAll();
   }, []);
@@ -166,16 +168,16 @@ const CanvasMark = () => {
   }, []);
 
   const handleMouseMove = useCallback((event) => {
-    handleDrawXYLine(event)
+    mouseTo = {
+      x: event.pointer.x,
+      y: event.pointer.y,
+    }
+    handleDrawXYLine(mouseTo)
     if (moveCount % 2 && !drawStatus) {
       //减少绘制频率
       return;
     }
     moveCount++;
-    mouseTo = {
-      x: event.pointer.x,
-      y: event.pointer.y,
-    }
     handleDraw();
     // fabricObj.renderAll();
   }, [handleDrawXYLine, handleDraw]);
@@ -301,20 +303,17 @@ const CanvasMark = () => {
   }, [handleSelectShape]);
 
   const handleMouseOver = useCallback((event) => {
-    // console.log('mouse:over');
-    fabricObj.add(
-      xLine,
-      yLine,
-    );
+    console.log('mouse:over');
   }, []);
 
   const handleMouseOut = useCallback((event) => {
-    // console.log('mouse:out')
-    fabricObj.remove(
-      xLine,
-      yLine,
-    )
-  }, []);
+    console.log('mouse:out')
+    mouseTo = {
+      x: -1,
+      y: -1,
+    }
+    handleDrawXYLine(mouseTo)
+  }, [handleDrawXYLine]);
 
   const fabricObjEvent = useCallback(() => {
     fabricObj.on({
