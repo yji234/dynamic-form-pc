@@ -15,6 +15,7 @@ let xLine;
 let yLine;
 let selectedShape = 'rect';
 let moveCount; 
+let downTarget;
 
 const CanvasMark = () => {
   const canvasRef = useRef(null);
@@ -79,7 +80,6 @@ const CanvasMark = () => {
     }else {
         scale = canvasHeight/imgHeight
     }
-    // console.log(scale)
 
     let img = new fabric.Image(imgElement,{
       scaleX: scale,
@@ -165,8 +165,12 @@ const CanvasMark = () => {
       x: event.pointer.x,
       y: event.pointer.y,
     }
-    console.log(mouseFrom.x, mouseFrom.y)
-    console.log('mouse:down')
+    console.log('mouse:down', event.target)
+    if(event.target !== null) {
+      console.log('left' in event.target, 'top' in event.target);
+      console.log(event.target.left, event.target.top)
+      downTarget = event.target;
+    }
   }, []);
 
   const handleMouseMove = useCallback((event) => {
@@ -184,7 +188,7 @@ const CanvasMark = () => {
     // fabricObj.renderAll();
   }, [handleDrawXYLine, handleDraw]);
 
-  const handleEdit = useCallback((event, markResultItem) => {
+  const handleEdit = useCallback((markResultItem) => {
     isEdit = true;
     drawStatus = false
     selectedShape = '';
@@ -194,7 +198,6 @@ const CanvasMark = () => {
     fabricObj.skipTargetFind = false;
     fabricObj.bringToFront(markResultItem);
     fabricObj.setActiveObject(markResultItem);
-    
   }, []);
 
   const handleEditAll = useCallback(() => {
@@ -207,6 +210,15 @@ const CanvasMark = () => {
     fabricObj.skipTargetFind = false;
   }, []);
 
+  const handleSelectShape = useCallback((shape, skipTargetFind) => {
+    selectedShape = shape;
+    isEdit = false;
+    fabricObj.isDrawingMode = false;
+    fabricObj.selectable = false;
+    fabricObj.selection = false;
+    fabricObj.skipTargetFind = skipTargetFind;
+  }, []);
+
   const handleMouseUp = useCallback((event) => {
     moveCount = 1;
     mouseTo = {
@@ -215,26 +227,38 @@ const CanvasMark = () => {
     }
     let width = mouseTo.x - mouseFrom.x;
     let height = mouseTo.y - mouseFrom.y;
-    console.log('mouse:up');
     if(selectedShape === 'rect') {
       if(drawObject && !isEdit){
         drawObject.set('id',labelResult.length);
         labelResult.push(drawObject)
         // 画完即可编辑
         if(width >= 5 && height >= 5) {
-          handleEdit(event, drawObject)
+          handleEdit(drawObject)
         }
-        // handleEditAll()
       }
     }
     setMarkResult([...labelResult])
     markResultRef.current = [...labelResult];
     drawObject = null;
     drawStatus = false;
-  }, [handleEdit]);
+
+    console.log('mouse:up', downTarget);
+    if(downTarget) {
+      if('id' in downTarget) {
+        let w = mouseTo.x - mouseFrom.x;
+        let h = mouseTo.y - mouseFrom.y;
+        console.log(w, h, w <= 5 && h <= 5)
+        if(w <= 5 && h <= 5) { // 编辑状态
+          handleEdit(downTarget); 
+        } else {  // 绘制状态
+          handleSelectShape('rect', true);
+        }
+      }
+    }
+  }, [handleEdit, handleSelectShape]);
 
   const handleSelectionCreated = useCallback((event) => {
-    console.log('selection:created')
+    // console.log('selection:created')
     event.target.set({
         transparentCorners: false,
         cornerColor: '#ff7a55',
@@ -260,7 +284,7 @@ const CanvasMark = () => {
   }, []);
 
   const handleSelectionUpdated = useCallback((event) => {
-    console.log('selection:updated')
+    // console.log('selection:updated')
     setCurrentMarkResultId(event.target.id);
     currentMarkResultIdRef.current = event.target.id;
     event.target.set({
@@ -294,26 +318,18 @@ const CanvasMark = () => {
     fabricObj.add(textBox);
   }, []);
 
-  const handleSelectShape = useCallback((shape) => {
-    selectedShape = shape;
-    isEdit = false;
-    fabricObj.isDrawingMode = false;
-    fabricObj.selectable = false;
-    fabricObj.selection = false;
-    fabricObj.skipTargetFind = true;
-  }, []);
 
   const handleSelectionCleared = useCallback((event) => {
-    console.log('selection:cleared');
-    handleSelectShape('rect');
+    // console.log('selection:cleared');
+    handleSelectShape('rect', false);
   }, [handleSelectShape]);
 
   const handleMouseOver = useCallback((event) => {
-    console.log('mouse:over');
+    // console.log('mouse:over');
   }, []);
 
   const handleMouseOut = useCallback((event) => {
-    console.log('mouse:out')
+    // console.log('mouse:out')
     mouseTo = {
       x: -1,
       y: -1,
@@ -333,9 +349,6 @@ const CanvasMark = () => {
       'selection:cleared': (event) => handleSelectionCleared(event),
       'object:modified': (event) => handleObjectModified(event),
       'object:moving': () => {},
-      'mouse:down:before': (event) => {
-        console.log('mouse:down:before ');
-      }
     })
   }, [
     handleMouseMove, 
@@ -468,7 +481,7 @@ const CanvasMark = () => {
               return (
                 <p key={item.id} onClick={(event) => {handleClickMarkItem(event, index)}}>
                   <span>框{index+1}: left: {item.left}, top: {item.top} </span>
-                  <Button type="primary" size="small" style={{marginRight: '5px'}} onClick={(event) => { handleEdit(event, markResult[index])}}>编辑</Button> 
+                  <Button type="primary" size="small" style={{marginRight: '5px'}} onClick={() => { handleEdit(markResult[index])}}>编辑</Button> 
                   <Button type="primary" size="small" style={{marginRight: '5px'}} onClick={(event) => { handleDelete(event, index)}}>删除</Button>
                   <Button type="primary" size="small" onClick={(event) => { handleSelectLabel(event, index)}}>标签选择</Button>
                 </p>
