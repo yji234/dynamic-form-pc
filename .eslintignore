@@ -1,0 +1,9 @@
+# CRA生成的文件
+CI/*
+public/*
+scripts/*
+node_modules/*
+src/serviceWorker.ts
+src/annotation/view/meek/*
+src/annotation/view/AI-mark-tool/AIMarker.js
+src/annotation/view/AIMarkTool.tsx

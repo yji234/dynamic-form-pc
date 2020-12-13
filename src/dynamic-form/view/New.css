@@ -35,7 +35,7 @@
     width: 420px;
     height: 100%;
     /* background-color: darkkhaki; */
-    background: url('../images/mobile.png') no-repeat center;
+    background: url('../assets/mobile.png') no-repeat center;
     display: flex;
     justify-content: center;
     align-items: center;
