@@ -1,8 +1,6 @@
 const eslintrc = {
   parser: '@typescript-eslint/parser',
   extends: [
-    'airbnb',
-    'airbnb/hooks',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',

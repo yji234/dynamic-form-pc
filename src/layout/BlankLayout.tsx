@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import React from 'react';
 import renderRoutes from '../route/renderRoutes';
 import { RouteType } from '../route/index';
 

@@ -17,7 +17,9 @@ interface ConfigBaseInfoProps{
 }
 
 const ConfigBaseInfo: FC<ConfigBaseInfoProps> = (props) => {
-  const { getFormList, modifyItem } = props;
+  const {
+    // getFormList,
+    modifyItem } = props;
   const history = useHistory();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -26,27 +28,27 @@ const ConfigBaseInfo: FC<ConfigBaseInfoProps> = (props) => {
   const handleCancel = useCallback(() => {
     setVisible(false);
     setLoading(false);
-  }, [form]);
+  }, []);
 
-  const handleFinish = (value: any) => {
+  const handleFinish = (value: any): any => {
     setLoading(true);
     console.log(value);
     addForm(value).then((res) => {
       console.log('handleFinish', res);
-      handleCancel()
+      handleCancel();
       // 跳转到拖拽生成表单的页面
       history.push('/form/drag-drop');
       // getFormList();
     });
-  }
+  };
 
   const handleConfigBaseInfo = useCallback(() => {
     form.resetFields();
     setVisible(true);
-  }, []);
+  }, [form]);
 
   useEffect(() => {
-    console.log(modifyItem)
+    console.log(modifyItem);
     if(modifyItem) {
       setVisible(true);
       form.setFieldsValue(modifyItem);
@@ -85,8 +87,8 @@ const ConfigBaseInfo: FC<ConfigBaseInfoProps> = (props) => {
         </Form>
       </Modal>
     </div>
-  )
-}
+  );
+};
  
 export default ConfigBaseInfo;
   

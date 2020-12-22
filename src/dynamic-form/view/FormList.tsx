@@ -54,8 +54,8 @@ const FormList: FC<{}> = () => {
         <span>
           {
             item.status
-            ? <span style={{ color: '#0b8235' }}>启用</span>
-            : <span style={{ color: '#d9d9d9' }}>禁用</span>
+              ? <span style={{ color: '#0b8235' }}>启用</span>
+              : <span style={{ color: '#d9d9d9' }}>禁用</span>
           }
         </span>
       ),
@@ -78,33 +78,33 @@ const FormList: FC<{}> = () => {
       title: '操作',
       key: 'action',
       render: (item) => (
-       <>
-        <Button
-          type="primary"
-          size="small"
-          onClick={() => handleChangeStatus(item)}
-          style={{ marginRight: '10px', background: !item.status ? '#0b8235' : '#ff4d4f', border: '0px' }}
-        >
-          {!item.status ? '启用' : '禁用'}
-        </Button>
-        <Button
-          type="primary"
-          size="small"
-          disabled={!item.status}
-          onClick={() => handleModify(item)}
-          style={{ marginRight: '10px' }}
-        >
+        <>
+          <Button
+            type="primary"
+            size="small"
+            onClick={() => handleChangeStatus(item)}
+            style={{ marginRight: '10px', background: !item.status ? '#0b8235' : '#ff4d4f', border: '0px' }}
+          >
+            {!item.status ? '启用' : '禁用'}
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            disabled={!item.status}
+            onClick={() => handleModify(item)}
+            style={{ marginRight: '10px' }}
+          >
           修改
-        </Button>
-        <Button
-          type="primary"
-          size="small"
-          disabled={item.status}
-          onClick={() => handleDelete(item)}
-        >
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            disabled={item.status}
+            onClick={() => handleDelete(item)}
+          >
           删除
-        </Button>
-       </>
+          </Button>
+        </>
       ),
     },
   ];
@@ -116,50 +116,6 @@ const FormList: FC<{}> = () => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<FormListItem>();
-
-  const handleModifyStatusAxios = useCallback((id, status) => {
-    modifyStatus({id, status}).then((res: any) => {
-      message.success(res.message || '修改成功');
-      handleGetFormList();
-    })
-  }, []);
-
-  const handleChangeStatus = useCallback((item: any) => {
-    console.log('handleChangeStatus', item);
-    Modal.confirm({
-      title: '确认修改',
-      icon: '',
-      content: '您确认要修改状态吗？',
-      onOk() {
-        console.log('OK');
-        handleModifyStatusAxios(item._id, !item.status);
-      },
-    })
-  }, []);
-
-  const handleModify = useCallback((item) => {
-    console.log('handleModify', item);
-    setSelectedItem(item);
-  }, []);
-
-  const handleDeleteAxios = useCallback((id) => {
-    deleteForm({id}).then((res: any) => {
-      message.success(res.message || '删除成功');
-      handleGetFormList();
-    })
-  }, []);
-
-  const handleDelete = useCallback((item) => {
-    Modal.confirm({
-      title: '确认删除',
-      icon: '',
-      content: '您确认要删除吗？',
-      onOk() {
-        console.log('OK');
-        handleDeleteAxios(item._id);
-      },
-    })
-  }, []);
 
   const handleGetFormList = useCallback((params?) => {
     setLoading(true);
@@ -187,6 +143,50 @@ const FormList: FC<{}> = () => {
       setLoading(false);
     });
   }, [pagination]);
+
+  const handleModifyStatusAxios = useCallback((id, status) => {
+    modifyStatus({id, status}).then((res: any) => {
+      message.success(res.message || '修改成功');
+      handleGetFormList();
+    });
+  }, [handleGetFormList]);
+
+  const handleChangeStatus = useCallback((item: any) => {
+    console.log('handleChangeStatus', item);
+    Modal.confirm({
+      title: '确认修改',
+      icon: '',
+      content: '您确认要修改状态吗？',
+      onOk() {
+        console.log('OK');
+        handleModifyStatusAxios(item._id, !item.status);
+      },
+    });
+  }, [handleModifyStatusAxios]);
+
+  const handleModify = useCallback((item) => {
+    console.log('handleModify', item);
+    setSelectedItem(item);
+  }, []);
+
+  const handleDeleteAxios = useCallback((id) => {
+    deleteForm({id}).then((res: any) => {
+      message.success(res.message || '删除成功');
+      handleGetFormList();
+    });
+  }, [handleGetFormList]);
+
+  const handleDelete = useCallback((item) => {
+    Modal.confirm({
+      title: '确认删除',
+      icon: '',
+      content: '您确认要删除吗？',
+      onOk() {
+        console.log('OK');
+        handleDeleteAxios(item._id);
+      },
+    });
+  }, [handleDeleteAxios]);
 
   const handleShowPageChange = (page: number, pageSizes: any): void => {
     const params = {

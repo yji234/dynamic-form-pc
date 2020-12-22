@@ -1,15 +1,15 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import './CreateFormSetAttr.css';
 
-interface buttonListParams{
+interface ButtonListParams{
   id: string, 
   name: string,
   bgColor: string,
 }
 
-interface formListParams{
+interface FormListParams{
   id: string,
   type: string,
   label: string,
@@ -24,7 +24,7 @@ const CreateFormSetAttr: FC<{}> = () => {
    * type: 控件类型
    * name: 控件名称
   */
-  const [buttonList, setButtonList] = useState<buttonListParams[]>([
+  const [buttonList] = useState<ButtonListParams[]>([
     {
       id: '1', 
       name: 'Input',
@@ -84,7 +84,7 @@ const CreateFormSetAttr: FC<{}> = () => {
       id: '12',
       name: 'Select',
       bgColor: '#3797A4',
-    }
+    },
   ]);
   /**
    * 生成表单元素
@@ -96,7 +96,7 @@ const CreateFormSetAttr: FC<{}> = () => {
    * isDisabled: 设置控件是否禁用
    * 
   */
-  const [formList, setFormList] = useState<formListParams[]>([]);
+  const [formList, setFormList] = useState<FormListParams[]>([]);
 
   const [form] = Form.useForm();
 
@@ -104,13 +104,13 @@ const CreateFormSetAttr: FC<{}> = () => {
     // console.log('handleDragStart', e.target);
     // console.log('handleDragStart', e.target.id);
     // console.log('handleDragStart', e.target.name);
-    e.dataTransfer.setData("elementType",e.target.name);
+    e.dataTransfer.setData('elementType',e.target.name);
   }, []);
 
   const handleDrop = useCallback((e) => {
     console.log('handleDrop--', e.target);
     e.preventDefault();
-    const elementType: string = e.dataTransfer.getData("elementType");
+    const elementType: string = e.dataTransfer.getData('elementType');
     const element = {
       id: uuidv4(),
       type: elementType,
@@ -131,7 +131,7 @@ const CreateFormSetAttr: FC<{}> = () => {
     e.preventDefault();
   }, []);
 
-  const handleDelete = useCallback((list: formListParams[], id: string) => {
+  const handleDelete = useCallback((list: FormListParams[], id: string) => {
     console.log(list);
     console.log('handleDelete', id);
     const newFormList = list.filter((item) => {
@@ -171,18 +171,18 @@ const CreateFormSetAttr: FC<{}> = () => {
         className="drag-target"
         style={{ width: '400px', height: '800px', background: '#3B6978', padding: "20px", marginRight: '10px' }}
       >
-        <h3 style={{ marginBottom: "10px", textAlign: 'center' }}>拖拽生成表单</h3>
+        <h3 style={{ marginBottom: '10px', textAlign: 'center' }}>拖拽生成表单</h3>
         <div
           style={{
             height: '740px',
             background: '#4E89AE',
-            overflowY: 'hidden'
+            overflowY: 'hidden',
           }}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
           {
-            formList.map((item: formListParams) => (
+            formList.map((item: FormListParams) => (
               <div
                 key={item.id}
                 className="targetItem"
@@ -204,9 +204,7 @@ const CreateFormSetAttr: FC<{}> = () => {
                   style={{
                     width: '120px',
                     height: '40px',
-                    // background: '#F39233',
                     borderRight: '1px solid #d9d9d9',
-                    // lineHeight: '40px',
                     paddingRight: '2px',
                     display: 'flex',
                     justifyContent: 'flex-end',
@@ -220,9 +218,7 @@ const CreateFormSetAttr: FC<{}> = () => {
                   style={{
                     width: '220px',
                     height: '40px',
-                    // background: '#916DD5',
                     color: '#d9d9d9',
-                    // lineHeight: '40px',
                     paddingLeft: '2px',
                     display: 'flex',
                     justifyContent: 'flex-start',
@@ -296,8 +292,8 @@ const CreateFormSetAttr: FC<{}> = () => {
         </Form>
       </div>
     </div>
-  )
-}
+  );
+};
  
 export default CreateFormSetAttr;
   
