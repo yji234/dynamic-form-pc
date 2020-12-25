@@ -14,6 +14,7 @@
     "axios": "^0.21.0",
     "fabric": "^4.1.0",
     "less": "^3.13.0",
+    "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -45,7 +46,9 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.166",
     "@typescript-eslint/parser": "^4.11.0",
+    "eslint-config-airbnb": "^18.2.1",
     "less-loader": "^7.1.0"
   }
 }
