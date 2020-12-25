@@ -148,7 +148,7 @@ const CreateFormSetAttr: FC<{}> = () => {
     >
       <div
         className="drag-source"
-        style={{ width: '400px', background: '#7E8A97', padding: "20px", marginRight: '10px' }}
+        style={{ width: '400px', background: '#F5F5F5', padding: '20px', marginRight: '10px' }}
       >
         <h3 style={{ textAlign: 'center' }}>可拖拽控件</h3>
         {
@@ -169,13 +169,13 @@ const CreateFormSetAttr: FC<{}> = () => {
       </div>
       <div
         className="drag-target"
-        style={{ width: '400px', height: '800px', background: '#3B6978', padding: "20px", marginRight: '10px' }}
+        style={{ width: '400px', height: '800px', background: '#F5F5F5', padding: '20px', marginRight: '10px' }}
       >
         <h3 style={{ marginBottom: '10px', textAlign: 'center' }}>拖拽生成表单</h3>
         <div
           style={{
             height: '740px',
-            background: '#4E89AE',
+            background: '#DCDCDC',
             overflowY: 'hidden',
           }}
           onDrop={handleDrop}
@@ -251,7 +251,7 @@ const CreateFormSetAttr: FC<{}> = () => {
       </div>
       <div
         className="set-attr"
-        style={{ width: '400px', height: '800px', background: '#8675A9', padding: '20px' }}
+        style={{ width: '400px', height: '800px', background: '#F5F5F5', padding: '20px' }}
       >
         <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>设置控件属性值</h3>
         <Form form={form} name="setAttr">
