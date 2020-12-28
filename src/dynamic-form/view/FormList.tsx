@@ -13,8 +13,10 @@ import {
 } from 'antd';
 import moment from 'moment';
 import { ColumnsType } from 'antd/es/table';
+import { useHistory } from 'react-router-dom';
 import './FormList.less';
 import { getFormList, deleteForm, modifyStatus } from '../api';
+import { getFormListById } from '../api/formlist';
 import ConfigBaseInfo from './ConfigBaseInfo';
 
 export interface FormListItem {
@@ -36,6 +38,7 @@ export interface PaginationParams{
 }
 
 const FormList: FC<{}> = () => {
+  const history = useHistory();
   const columns: ColumnsType<FormListItem> = [
     {
       key: 'name',
@@ -82,6 +85,22 @@ const FormList: FC<{}> = () => {
           <Button
             type="primary"
             size="small"
+            onClick={() => handleSetFormAttr(item)}
+            style={{ marginRight: '10px', border: '0px' }}
+          >
+            设置表单属性
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            onClick={() => handleReview(item)}
+            style={{ marginRight: '10px', border: '0px' }}
+          >
+            预览
+          </Button>
+          <Button
+            type="primary"
+            size="small"
             onClick={() => handleChangeStatus(item)}
             style={{ marginRight: '10px', background: !item.status ? '#0b8235' : '#ff4d4f', border: '0px' }}
           >
@@ -116,6 +135,18 @@ const FormList: FC<{}> = () => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<FormListItem>();
+
+  const handleSetFormAttr = useCallback((item) => {
+    history.push(`/form/create-form-set-attr/${item._id}`);
+  }, []);
+
+  const handleReview = useCallback((item) => {
+    getFormListById({ parentId: item._id }).then((res) => {
+      console.log(res);
+      sessionStorage.setItem('forms', JSON.stringify(res.data))
+      window.open('/form/review');
+    })
+  }, []);
 
   const handleGetFormList = useCallback((params?) => {
     setLoading(true);

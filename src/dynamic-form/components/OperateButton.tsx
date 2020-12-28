@@ -1,6 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { Button } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { addFormList } from '../api/formlist';
 
 interface OperateButtonProps{
   formList: any;
@@ -9,6 +10,7 @@ interface OperateButtonProps{
 const OperateButton: FC<OperateButtonProps> = (props) => {
   const { formList } = props;
   const hostory = useHistory();
+  const { parentId } = useParams<{parentId: string;}>();
 
   const handleReview = useCallback(() => {
     // console.log('handleReview', formList);
@@ -19,6 +21,13 @@ const OperateButton: FC<OperateButtonProps> = (props) => {
 
   const handleSubmit = useCallback(() => {
     console.log('handleSubmit', formList);
+    addFormList({
+      parentId,
+      forms: JSON.stringify(formList),
+    }).then((res) => {
+      console.log(res);
+      hostory.push('/form/list');
+    })
   }, [formList]);
 
   return (

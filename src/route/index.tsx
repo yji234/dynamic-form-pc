@@ -40,7 +40,7 @@ const routes: Array<RouteType> = [
         component: SuspenseComponent(DragDrop),
       },
       {
-        path: '/form/create-form-set-attr',
+        path: '/form/create-form-set-attr/:parentId',
         exact: true,
         component: SuspenseComponent(CreateFormSetAttr),
       },

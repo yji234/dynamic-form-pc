@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Button, Modal, Form, Input, Switch } from 'antd';
-import { useHistory } from 'react-router-dom';
 import { addForm } from '../api';
 
 const layout = {
@@ -17,10 +16,7 @@ interface ConfigBaseInfoProps{
 }
 
 const ConfigBaseInfo: FC<ConfigBaseInfoProps> = (props) => {
-  const {
-    // getFormList,
-    modifyItem } = props;
-  const history = useHistory();
+  const { getFormList, modifyItem } = props;
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
@@ -36,9 +32,7 @@ const ConfigBaseInfo: FC<ConfigBaseInfoProps> = (props) => {
     addForm(value).then((res) => {
       console.log('handleFinish', res);
       handleCancel();
-      // 跳转到拖拽生成表单的页面
-      history.push('/form/drag-drop');
-      // getFormList();
+      getFormList();
     });
   };
 
