@@ -10,6 +10,7 @@ const SuspenseComponent = (Component: React.FC) => (props: JSX.IntrinsicAttribut
 const FormList = lazy(() => import('../dynamic-form/view/FormList'));
 const DragDrop = lazy(() => import('../dynamic-form/view/New'));
 const CreateFormSetAttr = lazy(() => import('../dynamic-form/view/CreateFormSetAttr'));
+const Review = lazy(() => import('../dynamic-form/view/Review'));
 
 export interface RouteType {
   key?: string;
@@ -42,6 +43,11 @@ const routes: Array<RouteType> = [
         path: '/form/create-form-set-attr',
         exact: true,
         component: SuspenseComponent(CreateFormSetAttr),
+      },
+      {
+        path: '/form/review',
+        exact: true,
+        component: SuspenseComponent(Review),
       },
     ],
   },

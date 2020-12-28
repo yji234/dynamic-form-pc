@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Form, Input, Radio } from 'antd';
+import { Form, Input, Radio, InputNumber } from 'antd';
 
 interface SetAttrProps{
   currentSelected: any;
@@ -26,13 +26,25 @@ const SetAttr: FC<SetAttrProps> = (props) => {
       <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>设置控件属性值</h3>
       <Form form={form} name="setAttr">
         <Form.Item
-          name="label"
-          label="控件名称"
-          rules={[{ required: true, message: '请输入控件名称，不超过15字' }]}
+          name="name"
+          label="控件Name"
+          rules={[{ required: true, message: '请输入控件Name，不超过15字' }]}
         >
           <Input
             maxLength={15}
-            placeholder="请输入控件名称"
+            placeholder="请输入控件Name"
+            onChange={(e) => handleUpdateFormListAttr('name', e.target.value)}
+            disabled={!currentSelected}
+          />
+        </Form.Item>
+        <Form.Item
+          name="label"
+          label="控件Label"
+          rules={[{ required: true, message: '请输入控件Label，不超过15字' }]}
+        >
+          <Input
+            maxLength={15}
+            placeholder="请输入控件Label"
             onChange={(e) => handleUpdateFormListAttr('label', e.target.value)}
             disabled={!currentSelected}
           />
@@ -59,6 +71,22 @@ const SetAttr: FC<SetAttrProps> = (props) => {
             <Radio.Button value={0} disabled={!currentSelected}>否</Radio.Button>
           </Radio.Group>
         </Form.Item>
+        {
+          form.getFieldValue('isRequired') && (
+            <Form.Item
+              name="message"
+              label="必填提示信息"
+              rules={[{ required: true, message: '请输入必填提示信息，不超过20字' }]}
+            >
+              <Input
+                maxLength={20}
+                placeholder="请输入必填提示信息"
+                onChange={(e) => handleUpdateFormListAttr('message', e.target.value)}
+                disabled={!currentSelected}
+              />
+            </Form.Item>
+          )
+        }
         <Form.Item
           name="isDisabled"
           label="是否禁用"
@@ -68,6 +96,15 @@ const SetAttr: FC<SetAttrProps> = (props) => {
             <Radio.Button value={1} disabled={!currentSelected}>是</Radio.Button>
             <Radio.Button value={0} disabled={!currentSelected}>否</Radio.Button>
           </Radio.Group>
+        </Form.Item>
+        <Form.Item
+          name="maxLength"
+          label="最大长度"
+        >
+          <InputNumber
+            disabled={!currentSelected}
+            onChange={(value) => handleUpdateFormListAttr('maxLength', value)}
+          />
         </Form.Item>
       </Form>
     </div>

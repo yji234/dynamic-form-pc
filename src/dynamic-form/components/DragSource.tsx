@@ -21,7 +21,7 @@ const DragSource: FC<{}> = () => {
     },
     {
       id: '2',
-      name: 'Textarea',
+      name: 'TextArea',
       bgColor: '#35D0BA',
     },
     {

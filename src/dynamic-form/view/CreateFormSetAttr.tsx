@@ -1,5 +1,4 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Button } from 'antd';
 import _ from 'lodash';
 import './CreateFormSetAttr.css';
 import DragSource from '../components/DragSource';
@@ -7,13 +6,16 @@ import DragTarget from '../components/DragTarget';
 import SetAttr from '../components/SetAttr';
 import OperateButton from '../components/OperateButton';
 
-interface FormListParams{
-  id: string,
-  type: string,
-  label: string,
-  placeHolder?: string,
-  isRequired?: number,
-  isDisabled?: number,
+export interface FormListParams{
+  id: string;
+  type: string;
+  name: string;
+  label: string;
+  placeHolder?: string;
+  isRequired?: number;
+  message?: string;
+  isDisabled?: number;
+  maxLength: number;
 }
 
 const CreateFormSetAttr: FC<{}> = () => {
@@ -39,11 +41,7 @@ const CreateFormSetAttr: FC<{}> = () => {
     const index = handleGetIndexById(currentSelected.id);
     newFormList[index][name] = value;
     setFormList([...newFormList]);
-  }, [formList, currentSelected]);
-
-  const handleSubmit = useCallback(() => {
-    console.log(formList);
-  }, [formList]);
+  }, [formList, currentSelected, handleGetIndexById]);
 
   return (
     <div 

@@ -1,14 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
-interface FormListParams{
-  id: string,
-  type: string,
-  label: string,
-  placeHolder?: string,
-  isRequired?: number,
-  isDisabled?: number,
-}
+import { FormListParams } from '../view/CreateFormSetAttr';
 
 interface DragTargetProps{
   formList: any;
@@ -26,10 +18,12 @@ const DragTarget: FC<DragTargetProps> = (props) => {
     const element = {
       id: uuidv4(),
       type: elementType,
+      name: '',
       label: elementType,
       placeHolder: 'Please do something...',
       isRequired: 0,
       isDisabled: 0,
+      maxLength: 0,
     };
     setCurrentSelected(element);
     console.log('formList', formList);
